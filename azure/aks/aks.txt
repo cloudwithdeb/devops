@@ -1,0 +1,28 @@
+Azure AKS Networking Options
+----------------------------
+
+1. Kubenet
+	I. POD CIDR address range is applied at cluster level
+	II. Can Have different IP CIDR range
+
+2. Azure CNI
+	I. POD CIDR address range is applied at node pool level
+	II. Cannot have different IP CIDR range
+
+A. Dynamic
+	I. POD CIDR address range is applied at node pool level
+	II. Cannot have different IP CIDR range
+
+B. Overlay
+	I. POD CIDR address range is applied at cluster level
+	II. Can have different IP CIDR range
+
+AKS using Kubenete and Overlay network, pods get their IP address from a different cidr range. Hence
+to enable communication between these pods a route table get creted with defined routes to enable
+pod to pod communication in the same node or accross different nodes.
+
+Note:
+	Route table which get created and assigned to subnet can have
+	a maximum of only 400 routes, Hence there can only be 400 node maximum
+	in a particular node pool hence when using the kubenete or the overlay
+	network plugin.

@@ -3,7 +3,10 @@ CONTAINER_RG='sibac'
 AKS_NAME='Siba'
 AKS_RG='Siba'
 
+# Update kubernetes cluster to attach container registry
 az aks update -n $AKS_NAME -g $AKS_RG --attach-acr $CONTAINER_RG
+
+# Update kubernetes cluster to detach container registry
 az aks update -n $AKS_NAME -g $AKS_RG --detach-acr $CONTAINER_RG
 
 # Build docker image using acr

@@ -1,0 +1,20 @@
+apiVersion: {{ .Values.Service.apiVersion }}
+kind: {{ .Values.Service.kind }}
+metadata:
+    name: {{ .Values.Service.metadata.name | default "using default value" | upper }}
+    labels:
+        app: this is for {{- if eq .Values.env "dev" }} Owusu {{- else if eq .Values.env "uat" }} Bright {{- else }} Debrah {{- end }}
+spec:
+    selector:
+        {{- include "selector" . | indent 6 }}
+    type: {{ .Values.Service.type }}
+    ports:
+        - name: {{ .Values.Service.name }}
+          port: {{ .Values.Service.port }}
+          {{- if eq .Values.env "dev" }}
+          targetPort: {{ .Values.Service.targetPort }}
+          {{- else if eq .Values.env "uat" }}
+          targetPort: "uat"
+          {{- else }}
+          targetPort: {{ .Release.Name }}
+          {{- end }}

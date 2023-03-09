@@ -1,0 +1,25 @@
+Deployment:
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: nginx-deploy
+  spec:
+    replicas: 5
+    template:
+      metadata:
+        name: nginx-temp
+  matchLabels:
+    app: nginx-app
+  image: nginx
+  port: 80
+  container:
+    name: nginx-cont
+Service:
+  name: svc-name
+  kind: v1
+  metadata:
+    name: "Value available"
+  type: LoadBalancer
+  targetPort: 80
+  port: 80
+env: king

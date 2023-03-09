@@ -1,0 +1,43 @@
+# Define Daemonset yaml configuration file
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: nginx-ds
+  labels:
+    app: nginx-app
+    env: dev
+spec:
+  selector:
+    matchLabels:
+      app: nginx-app
+  template:
+    metadata:
+      name: nginx-temp
+      labels:
+        app: nginx-app
+    spec:
+      containers:
+        - name: nginx-cont
+          image: nginx
+          ports:
+            - containerPort: 80
+
+# Define service
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-svc
+  labels:
+    app: nginx-app
+    env: dev
+    client: gtuc
+spec:
+  selector:
+    app: nginx-app
+  type: LoadBalancer
+  ports:
+    - name: svc-port
+      targetPort: 80
+      port: 80

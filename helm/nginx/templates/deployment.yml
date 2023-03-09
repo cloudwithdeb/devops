@@ -1,0 +1,21 @@
+# Deploy Nginx Application
+apiVersion: {{ .Values.Deployment.apiVersion }}
+kind: {{ .Values.Deployment.kind }}
+metadata:
+    name: {{ .Values.Deployment.metadata.name }}
+spec:
+    replicas: {{ .Values.Deployment.spec.replicas }}
+    selector:
+        matchLabels:
+            app: {{ .Values.Deployment.matchLabels.app }}
+    template:
+        metadata:
+            name: {{ .Values.Deployment.spec.template.metadata.name }}
+            labels:
+                app: {{ .Values.Deployment.matchLabels.app }}
+        spec:
+            containers:
+                - name: {{ .Values.Deployment.container.name }}
+                  image: {{ .Values.Deployment.image }}
+                  ports:
+                    - containerPort: {{ .Values.Deployment.port }}
